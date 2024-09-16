@@ -25,6 +25,6 @@ var app = builder.Build();
 
 
 
-//app.MapControllers();
+app.MapControllers();
 
 app.Run();
