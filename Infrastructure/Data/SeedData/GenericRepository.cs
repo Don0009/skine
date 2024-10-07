@@ -26,9 +26,19 @@ namespace Infrastructure.Data.SeedData
            return await context.Set<T>().FindAsync(id);    
         }
 
+        public Task<T?> GetEntityWithSpec(ISpecification<T> spec)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
             return await context.Set<T>().ToListAsync();
+        }
+
+        public Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
+        {
+            throw new NotImplementedException();
         }
 
         public void Remove(T entity) 
@@ -44,6 +54,13 @@ namespace Infrastructure.Data.SeedData
         public void Update(T entity)
         {
             context.Set<T>().Attach(entity);
+        }
+
+
+        private IQueryable<T> ApplySpecification(SpecificationEvaluator<T> spec)
+
+        {
+            return SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), spec);
         }
     }
 }
